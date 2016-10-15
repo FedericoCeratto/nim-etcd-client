@@ -1,0 +1,59 @@
+== etcd_client
+
+Nim client for https://coreos.com/etcd/docs/latest/[etcd] - API v2
+
+=== Installation
+
+[source,bash]
+----
+nimble install etcd_client
+----
+
+=== Usage
+
+Refer to the etcd documentation on how to use the datastore.
+
+Run "nim doc2" to generate docs for the library.
+
+Usage example:
+
+[source,nim]
+----
+import etcd_client
+
+let c = new_etcd_client(failover=false)
+
+# get_version
+let v = c.get_version()
+
+# get_health
+let v = c.get_health()
+
+# get_debug_vars
+let v = c.get_debug_vars()
+
+# list directory
+echo c.ls("/")
+
+# create, get, update, delete key
+c.create("test_key", "Hello world")
+echo c.get("test_key")
+c.update("test_key", "Hello 2")
+c.del("test_key")
+
+# Get stats
+echo c.get_leader_stats()
+echo c.get_self_stats()
+echo c.get_store_stats()
+
+# cluster members
+echo c.get_cluster_members()
+
+# mkdir, rmdir
+c.mkdir("test_dir")
+c.rmdir("test_dir")
+----
+
+More working examples are available under tests/functional.nim
+
+
