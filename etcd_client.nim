@@ -158,8 +158,10 @@ proc mkdir*(self: EtcdClient, path: string, ttl= -1): JsonNode {.discardable.} =
 
 proc rmdir*(self: EtcdClient, path: string, recursive=false): JsonNode {.discardable.} =
   ## Delete a directory
-  return self.call_api_form("keys" / path & "?dir=true", HttpDelete, {"recursive": $recursive}, from_key="node")
-  #TODO test recursive
+  if recursive:
+    return self.call_api("keys" / path & "?recursive=true", HttpDelete, from_key="node")
+  else:
+    return self.call_api("keys" / path & "?dir=true", HttpDelete, from_key="node")
 
 
 # Status
