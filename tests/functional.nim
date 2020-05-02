@@ -96,8 +96,8 @@ suite "functional tests":
 
   test "get_store_stats":
     let s = c.get_store_stats()
-    assert s["expireCount"].getNum >= 0
-    assert s["compareAndSwapFail"].getNum >= 0
+    assert s["expireCount"].getInt >= 0
+    assert s["compareAndSwapFail"].getInt >= 0
 
 
   test "cluster members - simple test":

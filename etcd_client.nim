@@ -274,7 +274,7 @@ proc delete_role*(self: EtcdClient, role: string): JsonNode {.discardable.} =
 
 proc is_auth_enabled*(self: EtcdClient): bool =
   ## Check if auth is enabled
-  return self.call_api("/auth/enable", HttpGet)["enabled"].getBVal
+  return self.call_api("/auth/enable", HttpGet)["enabled"].getBool
 
 proc enable_auth*(self: EtcdClient): JsonNode {.discardable.} =
   ## Enable authentication
