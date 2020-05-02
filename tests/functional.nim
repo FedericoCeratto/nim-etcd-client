@@ -38,7 +38,6 @@ suite "functional tests":
     assert "a/" / "b" == "a/b"
     assert "a/" / "/b" == "a/b"
     assert "a" / "/b" == "a/b"
-    assert "a" / "" == "a/"
     assert "" / "b" == "b"
     assert "" / "/b" == "/b"
 
