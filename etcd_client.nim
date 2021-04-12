@@ -140,6 +140,10 @@ proc set*(self: EtcdClient, key, value: string, ttl= -1): JsonNode {.discardable
   else:
     return self.call_api_form("keys" / key, HttpPut, {"value": value, "ttl": $ttl}, from_key="node")
 
+proc refresh*(self: EtcdClient, key: string, ttl=0): JsonNode {.discardable} =
+  ## Refresh key ttl
+  return self.call_api_form("keys" / key & "?prevExist=true&refresh=true", HttpPut, {"ttl": $ttl}, from_key="node")
+
 proc create*(self: EtcdClient, key, value: string): JsonNode {.discardable.} =
   ## Create a new key
   return self.call_api_form("keys" / key & "?prevExist=false", HttpPut, {"value": value}, from_key="node")
