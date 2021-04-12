@@ -31,7 +31,7 @@ if not existsEnv("NIM_ENABLE_ETCD_FUNCTEST"):
 
 suite "functional tests":
 
-  let c = new_etcd_client("localhost", 4001, failover=false)
+  let c = new_etcd_client(failover=false)
 
   test "basic":
     assert "a" / "b" == "a/b"
@@ -116,7 +116,7 @@ suite "functional tests":
   test "set, get":
     c.set(test_key, "Foo")
     let r = c.get(test_key)
-    ## assert r["value"].str == "Foo", $r
+    ##assert r["value"].str == "Foo", $r
 
   test "refresh ttl":
     c.set(test_key, "Foo", ttl=1)
