@@ -16,6 +16,7 @@ import json,
 from os import sleep, existsEnv
 from sequtils import anyIt
 
+import etcd_client
 
 const
   test_dir = "/nim_etcd_test_dir"
