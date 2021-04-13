@@ -9,7 +9,6 @@
 # implement/test ttl on dir
 # implement reconnect
 # implement Atomic Compare-and-Delete & similar
-# implement Refreshing key TTL
 
 import httpclient,
   logging,
