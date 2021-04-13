@@ -118,6 +118,26 @@ suite "functional tests":
     let r = c.get(test_key)
     ##assert r["value"].str == "Foo", $r
 
+  test "refresh ttl":
+    c.set(test_key, "Foo", ttl=1)
+    let t0 = epochTime()
+    sleep 800
+    c.refresh(test_key, ttl=1)
+    for tries in 0..20:
+      sleep 100
+      try:
+        discard c.get(test_key)
+      except:
+        # the key timed out
+        break
+
+    expect Exception:
+        discard c.get(test_key)
+
+    let elapsed = epochTime() - t0
+    echo elapsed
+    assert elapsed > 1.8
+
   test "set, get with low TTL":
     c.set(test_key, "Foo", ttl=1)
     let t0 = epochTime()
